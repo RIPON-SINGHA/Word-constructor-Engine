@@ -4,7 +4,9 @@ This is a beginner level python string based project where a user can give a seq
 but in a unordered way and this program will check that sequence of letters and will compare the real words from dictionary word data
 if it satisfies the conditions to make a word out of that input letters then it will give us the actual word.
 
-Suppose, user input : d u n e s t a r d n 
+Suppose, 
+
+         user input : d u n e s t a r d n 
          Actual word : understand
 
          user input : p t c u m e r o
