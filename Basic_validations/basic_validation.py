@@ -1,5 +1,6 @@
 def main():
     user_input = input("Enter your delusional sequence of characters: ")
+    word = "moose"
 
     cleaned_input = clean_input(user_input)
     input_freq = char_freq(cleaned_input)
@@ -7,8 +8,10 @@ def main():
     print(cleaned_input)
     print(input_freq)
 
-    if can_form("cab", input_freq):
+    if can_form(word, input_freq):
         print("YES the word can be formed")
+        usused_chars = unused_chars(word, cleaned_input)
+        print(usused_chars)
     else:
         print("No, the word can not be formed")
 
@@ -42,6 +45,19 @@ def can_form(word, input_freq):
             return False
     
     return True
+
+
+def unused_chars(word, input_word):
+    word_letters = list(word)
+    unused_chars = []
+
+    for char in input_word:
+        if char in word_letters:
+            word_letters.remove(char)
+        else:
+            unused_chars.append(char)
+    
+    return unused_chars
 
 
 main()
