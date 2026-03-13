@@ -19,20 +19,20 @@
     p:2
     }
 
-User Input
+1. User Input
      ↓
-Clean Input
+2. Clean Input
      ↓
-Build Frequency Map
+3. Build Frequency Map
      ↓
-Load Dictionary
+4. Load Dictionary
      ↓
-Loop Each Word
+5. Loop Each Word
      ↓
-Length Filter
+6. Length Filter
      ↓
-can_form()
+7. can_form()
      ↓
-Store Valid Word
+8. Store Valid Word
      ↓
-Print Results
+9. Print Results
