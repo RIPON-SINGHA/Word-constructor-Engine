@@ -19,4 +19,20 @@
     p:2
     }
 
-    
+User Input
+     ↓
+Clean Input
+     ↓
+Build Frequency Map
+     ↓
+Load Dictionary
+     ↓
+Loop Each Word
+     ↓
+Length Filter
+     ↓
+can_form()
+     ↓
+Store Valid Word
+     ↓
+Print Results
