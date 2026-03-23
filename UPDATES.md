@@ -13,3 +13,4 @@ UPDATE DAY 2: Added a sample dictionary to the project.
 
 NEXT DAY WORK: adding a real dictionary, fixing some more issues like naming and some more conditions, fixing input and output formatting and probably defininf fucntions for every other works because main() looking heavy now.
 yeah
+yeahh
