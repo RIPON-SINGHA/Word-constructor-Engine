@@ -11,6 +11,7 @@ UPDATE DAY 2: Added a sample dictionary to the project.
               Changed invalid user input condition using .isalpha()
               Added some more conditions in main() to expected output.
 
-NEXT DAY WORK: adding a real dictionary, fixing some more issues like naming and some more conditions, fixing input and output formatting and probably defininf fucntions for every other works because main() looking heavy now.
-yeah
-yeahh
+UPDATE DAY 3: Broke different functionalities into different functions such as result_words() and ouptput_formatting().
+              Understand what V2 will be on based on.
+              Finalizing V1 word constructor engine.
+              Adding comments for better understading above each functions and code.

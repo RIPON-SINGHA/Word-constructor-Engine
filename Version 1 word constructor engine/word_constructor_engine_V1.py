@@ -1,25 +1,29 @@
-def main():
+def main(): # Entry point: handles input validation, processing, and output flow
+    # taking user input
     user_input = input("Enter your delusional sequence of letters: ")
-    
+
+    # Remove spaces to validate that input contains only alphabetic characters
     temp_input = user_input.replace(" ", "")
 
+    # Reject input if it contains non-alphabetic characters
     if not temp_input.isalpha():
         print("You must enter alphabatical letters only!")
     else:
-        cleaned_input = clean_input(user_input)
-        input_freq = char_freq(cleaned_input)
+        cleaned_input = clean_input(user_input) # Normalize input by removing spaces and converting to lowercase
+        input_freq = char_freq(cleaned_input) # Build frequency map of input letters for comparison with dictionary words
 
-        words = load_dictionary()
+        words = load_dictionary() # Load list of valid words from dictionary file
 
-        valid_words = result_words(words, cleaned_input, input_freq)
+        # Filter dictionary words that can be formed from input letters also compute unused letters for each valid word
+        valid_words = result_words(words, cleaned_input, input_freq) 
        
-        output_formatting(valid_words, cleaned_input)
+        output_formatting(valid_words, cleaned_input) # this is for only output given by the program. it is formatted for better understanding.
     
-
+# cleaning input function
 def clean_input(word):
     return word.replace(" ", "").lower()
     
-
+# character frequency making function
 def char_freq(word):
     freq = {}
 
@@ -31,7 +35,7 @@ def char_freq(word):
     
     return freq
 
-
+# Check if a word can be formed using the available input letter frequencies
 def can_form(word, input_freq):
     word_freq = char_freq(word)
 
@@ -43,7 +47,7 @@ def can_form(word, input_freq):
         
     return True
 
-
+# Return letters from input that are not used when forming the given word
 def unused_Chars(word, input):
     word_freq = list(word)
 
@@ -57,7 +61,7 @@ def unused_Chars(word, input):
     
     return unused_chars
 
-
+# loading dictionary function
 def load_dictionary():
     with open("english_words.txt", "r") as dict:
         word_list = []
@@ -66,7 +70,7 @@ def load_dictionary():
         
         return word_list
     
-
+# checking the word and conduction can_form() from earlier
 def result_words(words, user_input, input_freq):
     result = []
     for word in words:
@@ -79,7 +83,7 @@ def result_words(words, user_input, input_freq):
         
     return result
 
-
+# Display results in a readable format
 def output_formatting(valid_words, user_input):
     if valid_words:
         print(f"Your input is {user_input}")
@@ -89,6 +93,5 @@ def output_formatting(valid_words, user_input):
     else:
         print(f"Your input is {user_input}")
         print("No word can be formed from this input.")
-
 
 main()
