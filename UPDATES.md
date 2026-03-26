@@ -15,3 +15,8 @@ UPDATE DAY 3: Broke different functionalities into different functions such as r
               Understand what V2 will be on based on.
               Finalizing V1 word constructor engine.
               Adding comments for better understading above each functions and code.
+
+UPDATE DAY 4: Done workign on Version 2 word constructor engine.
+              Added some new and more strict conditions for a word to get pass through to can_form()
+              Build a better performancce and optimized version of the program
+              As of version 2 this is just a filtering engine and not a constructor yet. next in V3 i will conduct making the actual constructor.
