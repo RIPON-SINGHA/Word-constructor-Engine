@@ -1,0 +1,114 @@
+def main():
+    user_input = input("Enter your delusional sequence of letters: ")
+    
+    temp_input = user_input.replace(" ", "")
+
+    if not temp_input.isalpha():
+        print("You must enter alphabatical letters only!")
+    else:
+        cleaned_input = clean_input(user_input)
+        input_freq = char_freq(cleaned_input)
+
+        words = load_dictionary()
+
+        valid_words, after_length_check, after_letter_check, checked_count = result_words(words, cleaned_input, input_freq)
+       
+        output_formatting(words, valid_words, cleaned_input, after_length_check, after_letter_check, checked_count)
+    
+
+def clean_input(word):
+    return word.replace(" ", "").lower()
+    
+
+def char_freq(word):
+    freq = {}
+
+    for char in word:
+        if char not in freq:
+            freq[char] = 1
+        else:
+            freq[char] += 1
+    
+    return freq
+
+
+def can_form(word_freq, input_freq):
+    for char in word_freq:
+        if char not in input_freq:
+            return False
+        if word_freq[char] > input_freq[char]:
+            return False
+        
+    return True
+
+
+def unused_Chars(word, input):
+    word_freq = list(word)
+
+    unused_chars = []
+
+    for char in input:
+        if char in word_freq:
+            word_freq.remove(char)
+        else:
+            unused_chars.append(char)
+    
+    return unused_chars
+
+
+def load_dictionary():
+    with open("english_words.txt", "r") as dict:
+        word_list = []
+        for word in dict:
+            clean_word = word.strip().lower()
+            word_set = set(clean_word)
+            word_freq = char_freq(clean_word)
+            word_list.append((clean_word, word_set, word_freq))
+        
+        return word_list
+    
+
+def result_words(words, user_input, input_freq): # Added some more strict validation and checks for words. For better optimization and to be fast.
+    result = []
+    input_set = set(user_input)
+    len_count = 0
+    letter_count = 0
+    checked_count = 0
+
+    for word, word_set, word_freq in words:
+        if len(word) > len(user_input):
+            len_count += 1
+            continue
+        
+        if not word_set.issubset(input_set):
+            letter_count += 1
+            continue
+
+        checked_count += 1
+        if can_form(word_freq, input_freq):
+            unused_chars = unused_Chars(word, user_input)
+            result.append((word, unused_chars))
+
+    after_length_check = len(words) - len_count
+    after_letter_check = after_length_check - letter_count
+        
+    return result, after_length_check, after_letter_check, checked_count
+
+
+def output_formatting(words, valid_words, user_input, after_length_check, after_letter_check, checked_count): # Added 3 new output stats along with the previous ones.
+    
+    if valid_words:
+        print(f"Your input is {user_input}")
+        for word, unused in valid_words:
+            print(f"Words: {word} | Unused -> {unused}")
+        print(f"Total {len(valid_words)} words formed.")
+        print(f"Total words: {len(words)}")
+        print(f"After length filter: {after_length_check}")
+        print(f"After letter check: {after_letter_check}")
+        print(f"Final checked: {checked_count}")
+    else:
+        print(f"Your input is {user_input}")
+        print("No word can be formed from this input.")
+       
+
+main()

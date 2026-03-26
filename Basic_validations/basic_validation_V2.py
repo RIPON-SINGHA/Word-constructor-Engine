@@ -11,9 +11,9 @@ def main():
 
         words = load_dictionary()
 
-        valid_words = result_words(words, cleaned_input, input_freq)
+        valid_words, after_length_check, after_letter_check, checked_count = result_words(words, cleaned_input, input_freq)
        
-        output_formatting(valid_words, cleaned_input)
+        output_formatting(words, valid_words, cleaned_input, after_length_check, after_letter_check, checked_count)
     
 
 def clean_input(word):
@@ -32,9 +32,7 @@ def char_freq(word):
     return freq
 
 
-def can_form(word, input_freq):
-    word_freq = char_freq(word)
-
+def can_form(word_freq, input_freq):
     for char in word_freq:
         if char not in input_freq:
             return False
@@ -62,33 +60,55 @@ def load_dictionary():
     with open("english_words.txt", "r") as dict:
         word_list = []
         for word in dict:
-            word_list.append(word.strip().lower())
+            clean_word = word.strip().lower()
+            word_set = set(clean_word)
+            word_freq = char_freq(clean_word)
+            word_list.append((clean_word, word_set, word_freq))
         
         return word_list
     
 
 def result_words(words, user_input, input_freq):
     result = []
-    for word in words:
+    input_set = set(user_input)
+    len_count = 0
+    letter_count = 0
+    checked_count = 0
+
+    for word, word_set, word_freq in words:
         if len(word) > len(user_input):
+            len_count += 1
+            continue
+        
+        if not word_set.issubset(input_set):
+            letter_count += 1
             continue
 
-        if can_form(word, input_freq):
+        checked_count += 1
+        if can_form(word_freq, input_freq):
             unused_chars = unused_Chars(word, user_input)
             result.append((word, unused_chars))
+
+    after_length_check = len(words) - len_count
+    after_letter_check = after_length_check - letter_count
         
-    return result
+    return result, after_length_check, after_letter_check, checked_count
 
 
-def output_formatting(valid_words, user_input):
+def output_formatting(words, valid_words, user_input, after_length_check, after_letter_check, checked_count):
+    
     if valid_words:
         print(f"Your input is {user_input}")
         for word, unused in valid_words:
             print(f"Words: {word} | Unused -> {unused}")
         print(f"Total {len(valid_words)} words formed.")
+        print(f"Total words: {len(words)}")
+        print(f"After length filter: {after_length_check}")
+        print(f"After letter check: {after_letter_check}")
+        print(f"Final checked: {checked_count}")
     else:
         print(f"Your input is {user_input}")
         print("No word can be formed from this input.")
-
+       
 
 main()
