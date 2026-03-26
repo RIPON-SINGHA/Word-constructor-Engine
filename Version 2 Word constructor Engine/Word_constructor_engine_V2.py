@@ -102,6 +102,7 @@ def output_formatting(words, valid_words, user_input, after_length_check, after_
         for word, unused in valid_words:
             print(f"Words: {word} | Unused -> {unused}")
         print(f"Total {len(valid_words)} words formed.")
+        print()
         print(f"Total words: {len(words)}")
         print(f"After length filter: {after_length_check}")
         print(f"After letter check: {after_letter_check}")
